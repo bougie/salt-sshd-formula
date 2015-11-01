@@ -2,4 +2,3 @@
 
 include:
     - sshd.install
-    - sshd.config
