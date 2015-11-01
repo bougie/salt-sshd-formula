@@ -1,5 +1,6 @@
 {% load_yaml as lookup %}
 FreeBSD:
+    package: openssh-portable
     service: sshd
     config_file: /etc/ssh/sshd_config
 Debian:
