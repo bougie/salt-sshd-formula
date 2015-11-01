@@ -7,5 +7,9 @@ sshd_config:
         - source: salt://sshd/files/sshd_config.j2
         - template: jinja
         - user: root
+        {% if salt['grains.get']('os') == 'FreeBSD' %}
+        - group: wheel
+        {% else %}
         - group: root
+        {% endif %}
         - mode: 0644
