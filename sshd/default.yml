@@ -7,6 +7,10 @@ Debian:
     package: openssh-server
     service: ssh
     config_file: /etc/ssh/sshd_config
+CentOS:
+    package: openssh-server
+    service: sshd
+    config_file: /etc/ssh/sshd_config
 {% endload %}
 
 {% load_yaml as rawmap %}
