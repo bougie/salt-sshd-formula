@@ -1,0 +1,12 @@
+{% load_yaml as lookup %}
+FreeBSD:
+    service: sshd
+    config_file: /etc/ssh/sshd_config
+Debian:
+    package: openssh-server
+    service: ssh
+    config_file: /etc/ssh/sshd_config
+{% endload %}
+
+{% load_yaml as rawmap %}
+{% endload %}
