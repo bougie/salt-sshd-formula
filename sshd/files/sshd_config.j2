@@ -7,7 +7,7 @@ ListenAddress {{salt['grains.get']('fqdn_ip4')[0]}}
 
 {% if config is defined %}
 	{% for item_name, item_value in config.items() %}
-{{item_name}}: {{item_value}}
+{{item_name}} {{item_value}}
 	{% endfor %}
 {% endif %}
 
