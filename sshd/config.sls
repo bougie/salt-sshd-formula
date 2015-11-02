@@ -1,5 +1,6 @@
 {% from "sshd/default.yml" import lookup, rawmap with context %}
 {% set lookup = salt['grains.filter_by'](lookup, grain='os', merge=salt['pillar.get']('sshd:lookup')) %}
+{% set rawmap = salt['pillar.get']('sshd', rawmap, merge=True) %}
 
 sshd_config:
     file.managed:
@@ -13,3 +14,7 @@ sshd_config:
         - group: root
         {% endif %}
         - mode: 0644
+        {% if rawmap.config is defined %}
+        - context:
+            - config: {{rawmap.config}}
+        {% endif %}
