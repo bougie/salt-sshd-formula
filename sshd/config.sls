@@ -16,5 +16,5 @@ sshd_config:
         - mode: 0644
         {% if rawmap.config is defined %}
         - context:
-            - config: {{rawmap.config}}
+            config: {{rawmap.config}}
         {% endif %}
