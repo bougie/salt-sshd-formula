@@ -13,5 +13,23 @@ CentOS:
     config_file: /etc/ssh/sshd_config
 {% endload %}
 
+{% if (salt['grains.get']('os') == 'Debian' and salt['grains.get']('osmajorrelease') < '8') or (salt['grains.get']('os') == 'CentOS' and salt['grains.get']('osmajorrelease') < '7') %}
+    {% set MACS = 'hmac-sha2-512,hmac-sha2-256,hmac-sha1' %}
+{% else %}
+    {% set MACS = 'hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com' %}
+{% endif %}
+
 {% load_yaml as rawmap %}
+config:
+    Ciphers: 'aes256-ctr,aes192-ctr,aes128-ctr'
+    MACs: '{{MACS}}'
+    UsePrivilegeSeparation: 'sandbox'
+    PermitEmptyPasswords: 'no'
+    MaxAuthTries: 2
+    LoginGraceTime: 30
+    PermitRootLogin: 'no'
+    PrintLastLog: 'yes'
+    PermitUserEnvironment: 'no'
+    X11Forwarding: 'no'
+    AllowTcpForwarding: 'no'
 {% endload %}
