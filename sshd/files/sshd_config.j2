@@ -1,17 +1,20 @@
 #
 # AUTO-GENERATED FILE BY SALT
 #
-
-Port 22
-ListenAddress {{salt['grains.get']('fqdn_ip4')[0]}}
-
-{% if config is defined %}
-	{% for item_name, item_value in config.items() %}
+{% if config is defined -%}
+	{%- for item_name, item_value in config.items() -%}
+		{%- if item_value is number or item_value is string %}
 {{item_name}} {{item_value}}
-	{%- endfor %}
-{% endif %}
+		{%- elif item_value is iterable %}
+			{%- for _item_value in item_value -%}
+{{item_name}} {{_item_value}}
+			{%- endfor -%}
+		{%- else %}
+{{item_name}} {{item_value}}
+		{%- endif %}
+	{%- endfor -%}
+{%- endif -%}
 
-# override default of no subsystems
 {% if salt['grains.get']('os') == 'FreeBSD' %}
 Subsystem	sftp	/usr/libexec/sftp-server
 {% else %}

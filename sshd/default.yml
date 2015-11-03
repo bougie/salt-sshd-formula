@@ -21,6 +21,8 @@ CentOS:
 
 {% load_yaml as rawmap %}
 config:
+    port: '22'
+    ListenAddress: '{{salt['grains.get']('fqdn_ip4')[0]}}'
     Ciphers: 'aes256-ctr,aes192-ctr,aes128-ctr'
     MACs: '{{MACS}}'
     UsePrivilegeSeparation: 'sandbox'
