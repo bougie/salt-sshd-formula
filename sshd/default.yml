@@ -26,10 +26,9 @@ config:
     MACs: '{{MACS}}'
     UsePrivilegeSeparation: 'sandbox'
     PermitEmptyPasswords: 'no'
-    MaxAuthTries: 2
+    MaxAuthTries: 5
     LoginGraceTime: 30
     PermitRootLogin: 'no'
-    PrintLastLog: 'yes'
     PermitUserEnvironment: 'no'
     X11Forwarding: 'no'
     AllowTcpForwarding: 'no'
