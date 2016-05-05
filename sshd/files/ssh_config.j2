@@ -1,0 +1,10 @@
+{%- from "sshd/macros.jinja" import gen_ssh_config -%}
+#
+# AUTO-GENERATED FILE BY SALT
+#
+{%- if config is defined -%}
+	{%- for host, _config in config.items() %}
+Host {{ host }}
+{{ gen_ssh_config(_config)|indent(4, True) }}
+	{% endfor -%}
+{%- endif -%}

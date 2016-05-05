@@ -18,3 +18,20 @@ sshd_config:
         - context:
             config: {{rawmap.config.sshd}}
         {% endif %}
+
+ssh_config:
+    file.managed:
+        - name: {{lookup.ssh_config_file}}
+        - source: salt://sshd/files/ssh_config.j2
+        - template: jinja
+        - user: root
+        {% if salt['grains.get']('os') == 'FreeBSD' %}
+        - group: wheel
+        {% else %}
+        - group: root
+        {% endif %}
+        - mode: 0644
+        {% if rawmap.config is defined and rawmap.config.ssh is defined %}
+        - context:
+            config: {{rawmap.config.ssh}}
+        {% endif %}

@@ -3,14 +3,17 @@ FreeBSD:
     package: openssh-portable
     service: sshd
     sshd_config_file: /etc/ssh/sshd_config
+    ssh_config_file: /etc/ssh/ssh_config
 Debian:
     package: openssh-server
     service: ssh
     sshd_config_file: /etc/ssh/sshd_config
+    ssh_config_file: /etc/ssh/ssh_config
 CentOS:
     package: openssh-server
     service: sshd
     sshd_config_file: /etc/ssh/sshd_config
+    ssh_config_file: /etc/ssh/ssh_config
 {% endload %}
 
 {% if (salt['grains.get']('os') == 'Debian' and salt['grains.get']('osmajorrelease') < '8') or (salt['grains.get']('os') == 'CentOS' and salt['grains.get']('osmajorrelease') < '7') %}
@@ -41,4 +44,13 @@ config:
         PermitUserEnvironment: 'no'
         X11Forwarding: 'no'
         AllowTcpForwarding: 'no'
+    ssh:
+        '*':
+            UseRoaming: 'no'
+            KexAlgorithms: 'curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256'
+            PasswordAuthentication: 'yes'
+            ChallengeResponseAuthentication: 'no'
+            PubkeyAuthentication: 'yes'
+            Ciphers: 'chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr'
+            MACs: 'hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-ripemd160-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,hmac-ripemd160,umac-128@openssh.com'
 {% endload %}
