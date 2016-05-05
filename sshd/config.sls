@@ -4,7 +4,7 @@
 
 sshd_config:
     file.managed:
-        - name: {{lookup.config_file}}
+        - name: {{lookup.sshd_config_file}}
         - source: salt://sshd/files/sshd_config.j2
         - template: jinja
         - user: root
@@ -14,7 +14,7 @@ sshd_config:
         - group: root
         {% endif %}
         - mode: 0644
-        {% if rawmap.config is defined %}
+        {% if rawmap.config is defined and rawmap.config.sshd is defined %}
         - context:
-            config: {{rawmap.config}}
+            config: {{rawmap.config.sshd}}
         {% endif %}

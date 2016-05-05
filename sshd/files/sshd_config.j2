@@ -1,18 +1,9 @@
+{%- from "sshd/macros.jinja" import gen_ssh_config -%}
 #
 # AUTO-GENERATED FILE BY SALT
 #
-{% if config is defined -%}
-	{%- for item_name, item_value in config.items() -%}
-		{%- if item_value is number or item_value is string %}
-{{item_name}} {{item_value}}
-		{%- elif item_value is iterable %}
-			{%- for _item_value in item_value %}
-{{item_name}} {{_item_value}}
-			{%- endfor -%}
-		{%- else %}
-{{item_name}} {{item_value}}
-		{%- endif %}
-	{%- endfor -%}
+{%- if config is defined -%}
+{{ gen_ssh_config(config) }}
 {%- endif -%}
 
 {% if salt['grains.get']('os') == 'FreeBSD' %}

@@ -2,15 +2,15 @@
 FreeBSD:
     package: openssh-portable
     service: sshd
-    config_file: /etc/ssh/sshd_config
+    sshd_config_file: /etc/ssh/sshd_config
 Debian:
     package: openssh-server
     service: ssh
-    config_file: /etc/ssh/sshd_config
+    sshd_config_file: /etc/ssh/sshd_config
 CentOS:
     package: openssh-server
     service: sshd
-    config_file: /etc/ssh/sshd_config
+    sshd_config_file: /etc/ssh/sshd_config
 {% endload %}
 
 {% if (salt['grains.get']('os') == 'Debian' and salt['grains.get']('osmajorrelease') < '8') or (salt['grains.get']('os') == 'CentOS' and salt['grains.get']('osmajorrelease') < '7') %}
@@ -21,23 +21,24 @@ CentOS:
 
 {% load_yaml as rawmap %}
 config:
-    Protocol: 2
-    HostKey:
-        - '/etc/ssh/ssh_host_ed25519_key'
-        - '/etc/ssh/ssh_host_rsa_key'
-    PasswordAuthentication: 'yes'
-    PubkeyAuthentication: 'yes'
-    ChallengeResponseAuthentication: 'no'
-    ListenAddress: '{{ salt['grains.get']('fqdn_ip4', ['0.0.0.0'])[0] }}:22'
-    KexAlgorithms: 'curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256'
-    Ciphers: 'chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr'
-    MACs: '{{MACS}}'
-    UsePrivilegeSeparation: 'sandbox'
-    PermitEmptyPasswords: 'no'
-    MaxAuthTries: 5
-    LoginGraceTime: 30
-    PermitRootLogin: 'no'
-    PermitUserEnvironment: 'no'
-    X11Forwarding: 'no'
-    AllowTcpForwarding: 'no'
+    sshd:
+        Protocol: 2
+        HostKey:
+            - '/etc/ssh/ssh_host_ed25519_key'
+            - '/etc/ssh/ssh_host_rsa_key'
+        PasswordAuthentication: 'yes'
+        PubkeyAuthentication: 'yes'
+        ChallengeResponseAuthentication: 'no'
+        ListenAddress: '{{ salt['grains.get']('fqdn_ip4', ['0.0.0.0'])[0] }}:22'
+        KexAlgorithms: 'curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256'
+        Ciphers: 'chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr'
+        MACs: '{{MACS}}'
+        UsePrivilegeSeparation: 'sandbox'
+        PermitEmptyPasswords: 'no'
+        MaxAuthTries: 5
+        LoginGraceTime: 30
+        PermitRootLogin: 'no'
+        PermitUserEnvironment: 'no'
+        X11Forwarding: 'no'
+        AllowTcpForwarding: 'no'
 {% endload %}
