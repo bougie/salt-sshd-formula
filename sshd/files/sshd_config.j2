@@ -6,7 +6,7 @@
 		{%- if item_value is number or item_value is string %}
 {{item_name}} {{item_value}}
 		{%- elif item_value is iterable %}
-			{%- for _item_value in item_value -%}
+			{%- for _item_value in item_value %}
 {{item_name}} {{_item_value}}
 			{%- endfor -%}
 		{%- else %}
