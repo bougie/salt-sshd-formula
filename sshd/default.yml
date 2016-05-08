@@ -40,7 +40,7 @@ config:
         PermitEmptyPasswords: 'no'
         MaxAuthTries: 5
         LoginGraceTime: 30
-        PermitRootLogin: 'no'
+        PermitRootLogin: 'without-password'
         PermitUserEnvironment: 'no'
         X11Forwarding: 'no'
         AllowTcpForwarding: 'no'
