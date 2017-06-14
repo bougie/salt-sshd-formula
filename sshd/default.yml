@@ -9,6 +9,11 @@ Debian:
     service: ssh
     sshd_config_file: /etc/ssh/sshd_config
     ssh_config_file: /etc/ssh/ssh_config
+Raspbian:
+    package: openssh-server
+    service: ssh
+    sshd_config_file: /etc/ssh/sshd_config
+    ssh_config_file: /etc/ssh/ssh_config
 CentOS:
     package: openssh-server
     service: sshd
